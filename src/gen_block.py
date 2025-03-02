@@ -18,6 +18,7 @@ def gen_block(
     storage_name="",
 ):
     block_ids = block.block_ids(version)
+    block_ids = sorted(list(set([*block_ids, "grass", "short_grass"])))
 
     if len(block_ids) == 0:
         return
