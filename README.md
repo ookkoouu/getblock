@@ -1,6 +1,6 @@
 # Get Block
 
-This library allows to get block placed at current execution context.
+A minecraft datapack to get block placed there.
 
 ## Usage
 
