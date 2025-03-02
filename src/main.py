@@ -20,7 +20,7 @@ def main(
     if channel == None or channel != "release" or channel != "snapshot":
         channel = "release"
 
-    if version == None:
+    if version == None or version == "latest":
         version = manifest.latest_version(channel)
 
     pack_format = datapack.packformat(version)

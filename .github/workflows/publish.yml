@@ -1,8 +1,26 @@
 name: Build & Publish
 
 on:
+  workflow_dispatch:
+    inputs:
+      version:
+        required: false
+        type: string
+        default: latest
+        description: minecraft version to build
+      channel:
+        required: false
+        type: string
+        default: release
+        description: release or snapshot
+
   workflow_call:
     inputs:
+      version:
+        required: false
+        type: string
+        default: latest
+        description: minecraft version to build
       channel:
         required: false
         type: string
@@ -23,7 +41,7 @@ jobs:
           cache: pip
 
       - run: pip install -r requirements.txt
-      - run: python src/main.py -c ${{ inputs.channel }}
+      - run: python src/main.py -c ${{ inputs.channel }} -v ${{ inputs.version }}
 
       - name: Set Vars
         uses: actions/github-script@v7
