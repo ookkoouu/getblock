@@ -1,0 +1,3 @@
+beet == 0.109.4
+requests ~= 2.0
+click ~= 8.0

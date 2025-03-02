@@ -1,0 +1,27 @@
+name: Publish New Version
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      do_publish: ${{ steps.release.outputs.release_created }}
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          release-type: simple
+
+  publish:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.do_publish }}
+    uses: ./.github/workflows/publish.yml
+    secrets:
+      MODRINTH_TOKEN: ${{secrets.MODRINTH_TOKEN}}

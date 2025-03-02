@@ -1,0 +1,23 @@
+name: Minecraft Update
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      id: ${{ steps.check.outputs.id }}
+    steps:
+      - name: Check Minecraft updates
+        id: check
+        uses: IotaBread/minecraft-update-check-action@v0
+
+  publish:
+    needs: check
+    if: ${{ needs.check.outputs.id != '' }}
+    uses: ./.github/workflows/publish.yml
+    secrets:
+      MODRINTH_TOKEN: ${{secrets.MODRINTH_TOKEN}}
