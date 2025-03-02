@@ -49,16 +49,18 @@ jobs:
           script: |
             const {readFileSync}  = require("fs");
             const versions = readFileSync("build/supported-versions.txt", "utf8").trim().split("\n");
-            core.exportVariable("max_version", versions.at(0));
+            core.exportVariable("max_version", versions.at(0) ?? "");
             core.exportVariable("code_version", readFileSync("version.txt", "utf8").trim());
-            core.exportVariable("game_version", readFileSync("build/supported-versions.txt", "utf8").trim());
+            core.exportVariable("game_version", versions.join(","));
 
-      - uses: cloudnode-pro/modrinth-publish@v2
+      - name: Upload to Modrinth
+        uses: RubixDev/modrinth-upload@v1
         with:
-          project: tVUawz1v
+          project_id: tVUawz1v
           loaders: datapack
           name: v${{ env.code_version }} for ${{ env.max_version }}
           version: ${{ env.code_version }}+mc${{ env.max_version }}
-          game-versions: ${{ env.game_version }}
-          files: build/getblock-${{ env.code_version }}+mc${{ env.max_version }}.zip
+          game_versions: ${{ env.game_version }}
+          featured: true
+          file_path: build/getblock-${{ env.code_version }}+mc${{ env.max_version }}.zip
           token: ${{ secrets.MODRINTH_TOKEN }}
