@@ -53,19 +53,20 @@ def gen_block(
             next_indexes.append(next_index)
             create_files(next_index, chunk)
 
-        pack.block_tags[f"{namespace}:{tag_dir}/block/{filename}"] = BlockTag(
-            {
-                "values": list(
-                    map(
-                        lambda next_index: {
-                            "id": f"#{namespace}:{tag_dir}/block/{next_index}",
-                            "required": False,
-                        },
-                        next_indexes,
+        if not index == "":
+            pack.block_tags[f"{namespace}:{tag_dir}/block/{filename}"] = BlockTag(
+                {
+                    "values": list(
+                        map(
+                            lambda next_index: {
+                                "id": f"#{namespace}:{tag_dir}/block/{next_index}",
+                                "required": False,
+                            },
+                            next_indexes,
+                        )
                     )
-                )
-            }
-        )
+                }
+            )
 
         pack.functions[f"{namespace}:{function_dir}/block/{filename}"] = Function(
             [
