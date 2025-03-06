@@ -17,7 +17,7 @@ def main(
     channel: manifest.ReleaseChannel | None,
     debug: bool,
 ):
-    if channel == None or channel != "release" or channel != "snapshot":
+    if channel == None or (channel != "release" and channel != "snapshot"):
         channel = "release"
 
     if version == None or version == "latest":
