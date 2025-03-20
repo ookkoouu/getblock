@@ -38,7 +38,7 @@ def main(
         # version_range = f"1.21-{mcversion}"
         supported_versions = manifest.range_version("1.21")
         min_format = 45
-        max_format = 999
+        max_format = pack_format
 
     print(f"Generating for {version}({pack_format})")
 
