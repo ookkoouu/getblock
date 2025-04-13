@@ -1,8 +1,8 @@
 name: Minecraft Update
 
 on:
-  # schedule:
-  #   - cron: "0 * * * *"
+  schedule:
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -14,6 +14,8 @@ jobs:
       - name: Check Minecraft updates
         id: check
         uses: IotaBread/minecraft-update-check-action@v0
+        with:
+          cache-base-key: 'mc-manifest-'
 
   publish:
     needs: check
